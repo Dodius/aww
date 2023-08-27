@@ -1,0 +1,102 @@
+.game {
+  width: 1300px; 
+  height: 200px;
+  border: 1px solid black;
+  position: relative;
+  margin: auto;
+}
+
+#dino {
+  width: 88px;
+  height: 94px;
+  background-image: url('assets/offline-sprite-2x.png');
+  /*background-position: 0 0; /* up-left background coordinates where to take it from*/
+
+  position: absolute; /* element coordinates where to put it to*/
+  left: 0px;
+  top: 70px;
+}
+
+.jump {
+  animation: jump 0.3s linear;
+}
+
+@keyframes jump {
+  0% {
+    top: 150px;
+  } 
+  30% {
+    top: 130px;
+  } 
+  50% {
+    top: 80px;
+  } 
+  80% {
+    top: 130px;
+  } 
+  100% {
+    top: 150px;
+  }
+}
+
+#cactus {
+  width: 34px;
+  height: 70px;
+
+
+  /* background-image: url("img/cactus.png"); */
+  background-image: url('assets/offline-sprite-4x.png');
+  /* background-position: -445px 2px; */
+  background-position: -445px 2px;
+  
+  /*background-size: 20px 40px; */
+  position: absolute;
+  top: 110px;
+  left: 60vw; /* 580px; */
+
+  animation: block 24s infinite linear;
+  
+}
+
+@keyframes block {
+  0% {
+    left: 65vw /* calc(70vw )!important; */
+  } 
+  100% {
+    left: -40px;
+  }
+}
+
+/* Sky by AG-GPT */
+#sky {
+  width: 100%;
+  height: 100px;
+  /* background-color: skyblue; */
+  position: relative;
+  left: 0px;
+  top: 0px;
+}
+
+.cloud {
+  width: 94px;
+  height: 31px;
+  /* background-color: white; */
+  background-image: url('assets/offline-sprite-4x.png');
+  background-position: -166px -36px; /* up-left background coordinates where to take it from*/
+
+  /* border-radius: 25px; */
+  position: relative;
+  left: -50px;        /* cloud appears left-outside the windows */ 
+  top: 50px;          /* JS will "instantiate them on the right */
+
+  animation: kfcloud 34s 1 linear; /* 1 -> infinite */
+}
+
+@keyframes kfcloud {
+  0% {
+    left: 65vw /* calc(70vw )!important; */
+  } 
+  100% {
+    left: -40px;
+  }
+}

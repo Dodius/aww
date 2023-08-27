@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Lobby</title>
+    <!-- <script src="socket.io/socket.io.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <table width="100%" border="1px">
+      <tr>
+        <td style="text-align: left;" width="20%" class="clickable" onclick="window.location.href='/player-score'">
+          <table width="100%">
+            <td>
+              <img src="img/bucks.png" style="height: 1em; vertical-align: middle;"> 0 
+            </td>
+            <td>
+              <img src="img/battle-icon-1.png" style="height: 1em; vertical-align: middle;"> 0
+            </td>
+          </table> 
+        </td>
+        <td width="50%"></td>
+        <td style="text-align: right;" width="30%" class="clickable" onclick="window.location.href='/profile'"> 
+          Brainy  <%= userName %> Green Duck  
+          <img src="https://api.dicebear.com/6.x/adventurer/svg?seed=Trouble" style="height: 4em; vertical-align: middle;">
+        </td>
+      </tr>
+    </table>
+
+
+    <h1>Portal Lobby</h1>
+
+    <!-- Display a list of available games -->
+    <div id="game-list">
+      <h2>Available Games</h2>
+      <ul>
+        <!-- Game list items will be dynamically generated with JavaScript 
+        <ul id="game-list-items"></ul>                                        -->
+        <ul>
+          <% games.forEach(game => { %>
+              <li><a href="/<%= game.name %>"><%= game.name %></a></li>
+          <% }); %>
+      </ul>
+      </ul>
+    </div>
+  
+  </body>
+</html>

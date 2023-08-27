@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Dino Lobby</title>
+    <!-- <script src="socket.io/socket.io.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <table width="100%" border="1px">
+      <tr>
+        <td style="text-align: left;" width="20%" class="clickable" onclick="window.location.href='/player-score'">
+          <table width="100%">
+            <td>
+              <img src="img/bucks.png" style="height: 1em; vertical-align: middle;"> 0 
+            </td>
+            <td>
+              <img src="img/battle-icon-1.png" style="height: 1em; vertical-align: middle;"> 0
+            </td>
+          </table> 
+        </td>
+        <td width="50%"></td>
+        <td style="text-align: right;" width="30%" class="clickable" onclick="window.location.href='/profile'"> 
+          Brainy  <%= userName %> Green Duck  
+          <img src="https://api.dicebear.com/6.x/adventurer/svg?seed=Trouble" style="height: 4em; vertical-align: middle;">
+        </td>
+      </tr>
+    </table>
+
+
+    <h1>Dino Lobby</h1>
+ 
+
+    <!-- Form for creating a new game -->
+    <div id="new-game">
+      <h2>Create a New Game</h2>
+      <form id="new-game-form">
+        <label for="game-name">Game Name:</label>
+        <input type="text" id="game-name" name="game-name">
+        <button type="submit" id="create-game-btn">Create Game</button>
+      </form>
+    </div>
+      
+    <!-- Button to join an existing game -->
+    <div id="join-game">
+      <h2>Join an Existing Game</h2>
+      <form id="join-game-form">
+        <label for="game-id">Game ID:</label>
+        <input type="text" id="game-id" name="game-id">
+        <button type="submit" id="join-game-btn">Join Game</button>
+      </form>
+      list of the games (taken from DB or from MEM/sessions):
+      <ul>
+        <% gamesList.forEach(game => { %>
+            <li><a href="/Dino/<%= game %>"><%= game %></a></li>
+        <% }); %>
+      </ul>
+    </div> 
+    
+    <script src="js/main.js"></script>
+  </body>
+</html>
