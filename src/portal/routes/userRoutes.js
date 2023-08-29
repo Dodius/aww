@@ -29,12 +29,13 @@ router.post('/update-username', async (req, res) => {
 
 router.post('/update-avatar', async (req, res) => {
   let newAvatarSeed = req.body.avatarSeed;
-
+  let newAvatarStyle= req.body.avatarStyle;
+  let newAvatarURL  = '6.x/'+newAvatarStyle+'/svg?seed='+newAvatarSeed;
   //avatar = '6.x/adventurer/svg?seed=' + hash.substring(0, 6);
 
   // Update the avatar seed in your database.
   // Once that's done, send a response back:
-  const result = await userService.updateUserAvatar(req.user.id, newAvatarSeed);
+  const result = await userService.updateUserAvatar(req.user.id, newAvatarURL);
 
   res.json({ success: true, message: 'Avatar updated successfully' });
 });

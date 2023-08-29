@@ -16,13 +16,11 @@ async function ensureAuthenticatedOrRegister(req, res, next) {
 		});
 
 		//------------ Create new avatar in https://api.dicebear.com/6.x/adventurer/svg?seed=Trouble
-		function generateSeedFromUsername(username) {
-			const currentDate = new Date().toISOString().slice(0,10).replace(/-/g,"");
-			const combinedData = username + currentDate;
-			
-			return crypto.createHash('md5').update(combinedData).digest('hex');
+		function generateSeedFromDate() {			
+			const timestamp = new Date().toISOString().replace(/[-T:\.Z]/g, "");
+    		return crypto.createHash('md5').update(timestamp).digest('hex');
 		}
-		const hash = generateSeedFromUsername('randomName');
+		const hash = generateSeedFromDate();
 		avatar = '6.x/adventurer/svg?seed=' + hash.substring(0, 6);
 
 	  // Store this user in the database

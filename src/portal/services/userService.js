@@ -52,13 +52,13 @@ async function updateUserName(userID, newUserName) {
     throw error;  // or handle it  accordingly
   }
 }
-
-async function updateUserAvatar(userID, newAvatar) {                      
+                
+async function updateUserAvatar(userID, newAvatarURL) {                      
   try {
-    console.log('// src/portal/services/userService.js  userID:', userID, ' newAvatar:', newAvatar);
+    console.log('// src/portal/services/userService.js  userID:', userID, ' newAvatar:', newAvatarURL);
     const [result] = await pool.execute(
       'UPDATE `users` SET avatar=? WHERE id=?', 
-      [newAvatar, userID]
+      [newAvatarURL, userID]
     );
     
     return result;
@@ -68,4 +68,4 @@ async function updateUserAvatar(userID, newAvatar) {
   }
 }
 
-module.exports = { getUserByUsername, getUserById, createUser, updateUserName };
+module.exports = { getUserByUsername, getUserById, createUser, updateUserName, updateUserAvatar };

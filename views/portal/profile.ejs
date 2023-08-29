@@ -29,30 +29,18 @@
         <button id="submit-username-button">Update Username</button>
     </div>
     
-    <img src="https://api.dicebear.com/<%=user.avatar %>" id="avatar-image" style="height: 4em; vertical-align: middle;">
+    <br/><br/>
 
-    <div id="edit-avatar-div">
-        <input id="new-avatar-input" type="text" placeholder="New avatar seed" />
-        <button id="submit-avatar-button">Update Avatar</button>
+    <div class="avatar-section"> 
+        <button id="randomize-button">Randomize</button>
+        <img id="current-avatar" src="https://api.dicebear.com/<%=user.avatar %>" alt="Current avatar" style="height: 4em; vertical-align: middle;">
+        <button id="theme-button">Change Style</button>
     </div>
 
-    <table>
-        <th>Sample avatars:</th>
-        <% 
-            let styles = ['adventurer', 'avataaars', 'big-ears', 'big-smile', 'lorelei', 'fun-emoji', 'personas'];
-            for (let style of styles) {
-                let randomSeed = generateRandomString(5);
-        %>
-        <tr>
-            <td><%= style %>:</td>
-            <td>
-                <img src="https://api.dicebear.com/6.x/<%= style %>/svg?seed=<%= randomSeed %>" style="height: 4em; vertical-align: middle;">
-                <%= randomSeed %>
-            </td>
-        </tr>
-        <% } %>
-    </table>
-
+    <div id="previous-avatars-container"></div>
+        <!-- Avatars will be appended here as they're changed -->
+    </div>
+    
     <!-- <script src="/js/main.js"></script> -->
     <script src="/js/player-properties.js"></script>
 </body>
