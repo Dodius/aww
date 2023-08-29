@@ -23,8 +23,8 @@
         </td>
         <td width="50%"></td>
         <td style="text-align: right;" width="30%" class="clickable" onclick="window.location.href='/profile'"> 
-          Brainy  <%= userName %> Green Duck  
-          <img src="https://api.dicebear.com/6.x/adventurer/svg?seed=Trouble" style="height: 4em; vertical-align: middle;">
+            <div style="white-space: nowrap;"><%= user.username %></div>
+          <img src="https://api.dicebear.com/<%=user.avatar%>" style="height: 4em; vertical-align: middle;">
         </td>
       </tr>
     </table>

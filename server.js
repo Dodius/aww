@@ -1,11 +1,11 @@
 // server.js
-const express = require('express');
-const session = require('express-session');
-const path = require('path');
+const express   = require('express');
+const session   = require('express-session');
+const path      = require('path');
 
-const passport = require('passport');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser'); 
+const passport      = require('passport');
+const bodyParser    = require('body-parser');
+const cookieParser  = require('cookie-parser'); 
 
 require('dotenv').config();
 const authMiddleware  = require('./src/portal/middleware/authMiddleware');
@@ -13,9 +13,8 @@ const authMiddleware  = require('./src/portal/middleware/authMiddleware');
 const portalRoutes    = require('./src/portal/routes/portalRoutes');
 const userRoutes      = require('./src/portal/routes/userRoutes');
 const dinoGameRoutes  = require('./src/DinoGame/routes/dinoGameRoutes');
-const { setupPassport } = require('./config/passportConfig');
 
-require('dotenv').config();
+const { setupPassport } = require('./config/passportConfig'); 
 
 const app = express();
 

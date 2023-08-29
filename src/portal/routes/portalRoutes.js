@@ -13,9 +13,9 @@ router.get('/', (req, res) => {
     { name: 'PWMiner' }
   ];
 
-   
+  const user = req.user;
 
-  res.render('portal/index', { games, userName: 'foo' });
+  res.render('portal/index', { games, user });
 });
 
 module.exports = router;

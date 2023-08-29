@@ -13,6 +13,7 @@ function setupPassport(passport) {
       // No user found, silently register user
       user = await createUser({ username });
     }
+    
     return done(null, user);
   }));
 
