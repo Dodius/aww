@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"></script>
+
     <title><%= title %></title>
 </head>
 <body>
     <h1><%= title %></h1>
-    <p>Welcome to the Dino game instance with ID: <%= instanceId %></p>
+    <p>Welcome <%= user.username %> to the Dino game instance with ID: <%= instanceId %></p>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <script type="module" src="./js/Game.js"></script>
 </body>
 </html>

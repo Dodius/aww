@@ -5,9 +5,9 @@ const router = express.Router();
 
 // Lobby route
   router.get('/', (req, res) => {
-      res.render('DinoGame/index', { 
+      res.render('DinoGame/dinoLobby', { 
           title: 'Dino Game Lobby', 
-          userName: 'req.user.username',
+          user: req.user,
           gamesList: [123, 321,432] });
   });
 
@@ -19,7 +19,7 @@ router.get('/:instanceId', (req, res) => {
     // For now, just render a placeholder
       res.render('DinoGame/gameInstance', { 
           title: `Dino Game Instance ${instanceId}`, 
-          userName: 'req.user.username', 
+          user: req.user, 
           instanceId: instanceId });
 });
 
