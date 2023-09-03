@@ -10,6 +10,7 @@ export default class Sprite {
 
     this.xPos = 400;           // initial position on ctx
     this.yPos = 100;
+    this.isOnScreen = true;
 
     this.velocityX = velocityX;
     this.velocityY = velocityY;
@@ -32,8 +33,8 @@ export default class Sprite {
       }
     }
        
-    this.xPos += this.velocityX * (deltaTime / 100);
-    this.yPos += this.velocityY * (deltaTime / 100);
+    //this.xPos += this.velocityX * (deltaTime / 100);
+    //this.yPos += this.velocityY * (deltaTime / 100);
   }
 
   draw(ctx) {

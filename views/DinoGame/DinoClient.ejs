@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Client for Dino Game <%= gameId %></title>
+</head>
+<body>
+
+  <h1>Game ID: <%= gameId %></h1>
+  <button id="jumpButton">Jump</button>
+
+  <!-- Include Socket.IO client script and your custom script -->
+  <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"></script>
+  <script>
+    const gameId = "<%= gameId %>";
+    const socket = io.connect();
+    
+    socket.emit('joinGame', gameId);
+    
+    document.getElementById('jumpButton').addEventListener('click', function() {
+      socket.emit('jump', gameId);
+    });
+  </script>
+
+</body>
+</html>
