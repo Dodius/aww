@@ -12,10 +12,16 @@ router.get('/', (req, res) => {
     });
 });
 
+// Game instance route for client, with shorthand URL
+router.get('/:gameId', (req, res) => {
+    const gameId = req.params.gameId;
+    res.redirect(`/Dino/${gameId}/client`);
+});
+
 // Game instance route for display
 router.get('/:gameId/display', (req, res) => {
     const gameId = req.params.gameId;
-    res.render('DinoGame/gameInstance', {
+    res.render('DinoGame/DinoView', {
         title: `Dino Game Instance ${gameId}`,
         user: req.user,
         gameId: gameId
@@ -24,8 +30,13 @@ router.get('/:gameId/display', (req, res) => {
 
 // Game instance route for client
 router.get('/:gameId/client', (req, res) => {
-    res.render('DinoGame/DinoClient', { gameId: req.params.gameId });
+    res.render('DinoGame/DinoClient', { 
+        gameId: req.params.gameId, 
+        user: req.user 
+    });
 });
+
+
 
 module.exports = router;
 

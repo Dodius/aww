@@ -7,8 +7,8 @@
     <!--script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script -->
     <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"></script>
     <script src="https://kit.fontawesome.com/5d12624b68.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
   </head>
 
   <body>
@@ -21,10 +21,10 @@
         <td style="text-align: left;" width="20%" class="clickable" onclick="window.location.href='/player-score'">
           <table width="100%">
             <td>
-              <img src="img/bucks.png" style="height: 1em; vertical-align: middle;"> 0 
+              <img src="/img/bucks.png" style="height: 1em; vertical-align: middle;"> 0 
             </td>
             <td>
-              <img src="img/battle-icon-1.png" style="height: 1em; vertical-align: middle;"> 0
+              <img src="/img/battle-icon-1.png" style="height: 1em; vertical-align: middle;"> 0
             </td>
           </table> 
         </td>
@@ -46,6 +46,11 @@
       <form id="new-game-form">
         <label for="game-name">Game Name:</label>
         <input type="text" id="game-name" name="game-name">
+        <!-- New dropdown menu to select create & play or create & host -->
+        <select id="game-type" name="game-type">
+          <option value="play">Create & Play</option>
+          <option value="host">Create & Host</option>
+        </select>
         <button type="submit" id="create-game-btn">Create Game</button>
       </form>
     </div>
@@ -65,7 +70,9 @@
         <% }); %>
       </ul>
     </div> 
+
+    Test: View <a href="/Dino/123/display">Hosted </a> Game
     
-    <script src="js/main.js"></script>
+    <script src="/Dino/js/main.js"></script>
   </body>
 </html>

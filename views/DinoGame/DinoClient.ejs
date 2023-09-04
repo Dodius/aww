@@ -2,8 +2,38 @@
 <html>
 <head>
   <title>Client for Dino Game <%= gameId %></title>
+  <!-- <script src="socket.io/socket.io.js"></script> -->
+  <!--script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script -->
+  <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"></script>
+  <script src="https://kit.fontawesome.com/5d12624b68.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
+
+  <a href="/" style="display: block; position: absolute; top: 10px; left: 10px;">
+    <i class="fas fa-arrow-left" style="font-size: 30px;"></i>
+  </a>
+
+  <table width="100%" border="1px">
+    <tr>
+      <td style="text-align: left;" width="20%" class="clickable" onclick="window.location.href='/player-score'">
+        <table width="100%">
+          <td>
+            <img src="/img/bucks.png" style="height: 1em; vertical-align: middle;"> 0 
+          </td>
+          <td>
+            <img src="/img/battle-icon-1.png" style="height: 1em; vertical-align: middle;"> 0
+          </td>
+        </table> 
+      </td>
+      <td width="50%"></td>
+      <td style="text-align: right;" width="30%" class="clickable" onclick="window.location.href='/profile'"> 
+          <div style="white-space: nowrap;"><%= user.username %></div>
+        <img src="https://api.dicebear.com/<%=user.avatar%>" style="height: 4em; vertical-align: middle;">
+      </td>
+    </tr>
+  </table>
 
   <h1>Game ID: <%= gameId %></h1>
   <button id="jumpButton">Jump</button>
