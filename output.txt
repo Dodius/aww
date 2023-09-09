@@ -1,0 +1,6 @@
+Folder PATH listing
+Volume serial number is 0000000F B2A6:6A79
+C:\PATH\TO\DIRECTORY
+Invalid path - \PATH\TO\DIRECTORY
+No subfolders exist 
+

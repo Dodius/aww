@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Host for Dino Game <%= gameId %></title>  
+  <!-- <script src="socket.io/socket.io.js"></script> -->
+  <!--script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script -->
+  <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"></script>
+  <script src="https://kit.fontawesome.com/5d12624b68.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="icon" href="/portal/img/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+  <a href="/" style="display: block; position: absolute; top: 10px; left: 10px;">
+    <i class="fas fa-arrow-left" style="font-size: 30px;"></i>
+  </a>
+ 
+
+  <h1>Game ID: <%= gameId %></h1> 
+  <div id="gameContainer" data-gameid="<%= gameId %>"></div>
+
+  here goes some statistic...
+
+  <!-- Include Socket.IO client script and your custom script -->
+  <script src="/Dino/js/DinoHost.js"></script>
+
+</body>
+</html>

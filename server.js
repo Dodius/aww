@@ -6,7 +6,6 @@ const http      = require('http');
 const socketIO  = require('socket.io'); 
 
 const passport      = require('passport');
-const bodyParser    = require('body-parser');
 const cookieParser  = require('cookie-parser'); 
 
 require('dotenv').config();
@@ -15,20 +14,24 @@ const authMiddleware  = require('./src/portal/middleware/authMiddleware');
 const portalRoutes    = require('./src/portal/routes/portalRoutes');
 const userRoutes      = require('./src/portal/routes/userRoutes');
 const dinoGameRoutes  = require('./src/DinoGame/routes/dinoGameRoutes');
+const dinoController  = require('./src/DinoGame/controllers/dinoController');
 
 const { setupPassport } = require('./config/passportConfig'); 
 
 const app = express();
 
 // Middleware setup
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use(cookieParser());
-app.use(session({
+const sessionMiddleware = session({
   secret: process.env.SESSION_SECRET,
   resave: true,
-  saveUninitialized: true
-}));
+  saveUninitialized: true,
+});
+
+app.use(sessionMiddleware);
  
 
 // Passport initialization
@@ -66,11 +69,14 @@ const server = http.createServer(app);
 
 // Attach Socket.IO to the HTTP server
 const io = socketIO(server);
+const dinoNamespace = io.of('/dino');  // Using a '/dino' namespace for organization
 
-// Listen to Socket.IO connection events
-io.on('connection', (socket) => {
-  console.log('User connected');
+dinoNamespace.use((socket, next) => {
+  sessionMiddleware(socket.request, {}, next);
 });
+
+// Attach the controller's connection handler to the Dino namespace
+dinoNamespace.on('connection', dinoController.handleConnection);
 
 // Starting the server
 const PORT = process.env.PORT || 3000;

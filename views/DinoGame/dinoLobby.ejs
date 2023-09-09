@@ -9,6 +9,7 @@
     <script src="https://kit.fontawesome.com/5d12624b68.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="icon" href="/portal/img/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
@@ -43,13 +44,13 @@
     <!-- Form for creating a new game -->
     <div id="new-game">
       <h2>Create a New Game</h2>
-      <form id="new-game-form">
+      <form id="new-game-form">  <!--  action="/dino/create" method="POST"> -->
         <label for="game-name">Game Name:</label>
         <input type="text" id="game-name" name="game-name">
         <!-- New dropdown menu to select create & play or create & host -->
         <select id="game-type" name="game-type">
-          <option value="play">Create & Play</option>
-          <option value="host">Create & Host</option>
+          <option value="createAndJoinGame">Create & Play</option>
+          <option value="hostGame">Create & Host</option>
         </select>
         <button type="submit" id="create-game-btn">Create Game</button>
       </form>
@@ -58,7 +59,7 @@
     <!-- Button to join an existing game -->
     <div id="join-game">
       <h2>Join an Existing Game</h2>
-      <form id="join-game-form">
+      <form id="join-game-form">  <!-- action="/dino/join" method="POST"> -->
         <label for="game-id">Game ID:</label>
         <input type="text" id="game-id" name="game-id">
         <button type="submit" id="join-game-btn">Join Game</button>
@@ -73,6 +74,6 @@
 
     Test: View <a href="/Dino/123/display">Hosted </a> Game
     
-    <script src="/Dino/js/main.js"></script>
+    <script src="/Dino/js/Lobby.js"></script>
   </body>
 </html>
