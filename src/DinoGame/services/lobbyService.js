@@ -1,54 +1,50 @@
-// D:\Games\Unity\Drago\GPT-Sep-Fold\aww\src\DinoGame\services\lobbyService.js 
-// Room management for Dino Game 
-
+// LobbyService.js
 const GameModel = require('../models/GameModel');
 const { initializeGameRoom, onClientJoined } = require('./gameService');
 const { v4: uuidv4 } = require('uuid');
 
-let rooms = [];  // This will store all the active rooms
+let gamesList = new Map();  // Initialize a new Map
 
-const createRoom = ({ userId, gameName, gameType }) => {
-  const roomId = generateUniqueRoomId();
+const createGame = ({ userId, gameName, gameType }) => {
+  const gameId = generateUniqueGameId();
   const newGame = new GameModel();
   
-  newGame.gameID = roomId;
+  newGame.gameID = gameId;
   newGame.state = "lobby";
 
-  const newRoom = {
-    id: roomId,
+  const newGameEntry = {
+    id: gameId,
     host: userId,
     gameName,
     gameType,
     gameInstance: newGame // Store the game instance here
   };
 
-  console.log('Lobby:newRoom=',newRoom);
-  rooms.push(newRoom);
+  gamesList.set(gameId, newGameEntry); // Use set() to add entries
   
-  initializeGameRoom(newRoom);
+  initializeGameRoom(newGameEntry);
 
-  console.log('Rooms in Dino Lobby=',rooms.length);
-  return newRoom;
+  return newGameEntry;
 };
 
-function joinRoom(roomId, playerId) {
-  const room = rooms.find(r => r.id === roomId);
-  if (room) {
-    onClientJoined(room, { playerId });
+function joinGame(gameId, playerId) {
+  const game = gamesList.get(gameId); // Use get() for lookup
+  if (game) {
+    onClientJoined(game, { playerId });
   }
-  return room;
+  return game;
 }
 
-function leaveRoom(roomId, playerId) {
-  const room = rooms.find(r => r.id === roomId);
-  if (room) {
-    room.gameInstance.removePlayer(playerId);
+function leaveGame(gameId, playerId) {
+  const game = gamesList.get(gameId); // Use get() for lookup
+  if (game) {
+    game.gameInstance.removePlayer(playerId);
   }
-  return room;
+  return game;
 }
 
-function generateUniqueRoomId() {
+function generateUniqueGameId() {
   return uuidv4();
 }
 
-module.exports = { createRoom, joinRoom, leaveRoom };
+module.exports = { gamesList, createGame, joinGame, leaveGame };

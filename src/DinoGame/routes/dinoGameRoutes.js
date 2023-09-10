@@ -52,14 +52,13 @@ router.get('/:gameId/public-display', dinoController.showPublicDisplay);
 
 // Hoster Dashboard
 router.get('/:gameId/host-dashboard', dinoController.showHostDashboard);
-/*
+
 // Simple Client View
 router.get('/:gameId/player-client', dinoController.showPlayerClient);
 
 // Internet Player with full local view
 router.get('/:gameId/internet-player', dinoController.showInternetPlayer);
 
-*/
 
 // Form at D:\Games\Unity\Drago\GPT-Sep-Fold\aww\views\DinoGame\dinoLobby.ejs 
 

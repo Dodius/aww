@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     const gameId = document.getElementById('game-id').value;
     console.log('Client socket id before Joining from Lobby:', socket.id);
-    socket.emit('joinGame', { gameId });
+    socket.emit('joinGame', { gameId });  //JoinSimpleView  joinFullView
   });
 
   socket.on('gameCreated', (data) => {

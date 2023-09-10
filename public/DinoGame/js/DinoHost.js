@@ -12,5 +12,16 @@ const gameId = document.getElementById('gameContainer').getAttribute('data-gamei
 
 console.log('gemeId='+ gameId);
 
+JsBarcode("#barcode", "http://localhost:3000/Dino/" + gameId + "/player-client");
+
+  
+socket.on('updateHostDashboard', (userList) => {
+  // Update the dashboard using the userList array.
+  const userCount = userList.length;
+  document.getElementById("userCount").innerText = userCount;
+  
+  const usernames = userList.join(", ");
+  document.getElementById("userNames").innerText = usernames;
+});
 
 });

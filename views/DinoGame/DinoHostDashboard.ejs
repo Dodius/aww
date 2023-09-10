@@ -6,6 +6,8 @@
   <!--script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script -->
   <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"></script>
   <script src="https://kit.fontawesome.com/5d12624b68.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+
   <link rel="stylesheet" href="/css/main.css" />
   <link rel="stylesheet" href="/css/styles.css" />
   <link rel="icon" href="/portal/img/favicon.ico" type="image/x-icon" />
@@ -21,6 +23,11 @@
   <div id="gameContainer" data-gameid="<%= gameId %>"></div>
 
   here goes some statistic...
+  userCount: <div id="userCount"></div>
+  userNames: <div id="userNames"></div>
+
+
+  <svg id="barcode"></svg>
 
   <!-- Include Socket.IO client script and your custom script -->
   <script src="/Dino/js/DinoHost.js"></script>

@@ -1,18 +1,21 @@
 //D:\Games\Unity\Drago\GPT-Sep-Fold\aww\src\DinoGame\controllers\dinoController.js 
 
-
 // Import any required modules and services you'll be using
-//const chalk = require('chalk');
-//const chalk = require('colors');
 const colors        = require('../../portal/services/ansiColors');
 const lobbyService  = require('../services/lobbyService');  
 const gameService   = require('../services/gameService');  // Your game service to handle logic
 
+console.log('required lobbyService=', lobbyService);
+
+
+// Utility function to save session
+function saveSessionData(sessionData, gameId) {
+  sessionData.gameId = gameId;
+  sessionData.save();
+}
+
 const handleConnection = function(socket) { 
-  //console.log(`User ${colors.ctx_FgYellow} ${socket.id} ${colors.ctx_Reset} connected to the Dino namespace in dinoController.js`);
   console.log(`${colors.ctx_BrCyan} dinoController.js:${colors.ctx_Reset}  User \x1b[33m ${socket.id} \x1b[0m connected to the Dino namespace in .js`);
-  //console.log(`User ${socket.id} connected to the Dino namespace in dinoController.js`);
-  //console.log(`User ${chalk.yellow(socket.id)} connected to the Dino namespace in dinoController.js`);
   
   const sessionData = socket.request.session;
   console.log('sessionData ===> \n',sessionData);
@@ -20,10 +23,10 @@ const handleConnection = function(socket) {
   let roomId = null;  // Declare roomId here
 
   socket.on('hostGame', (data) => {
-    console.log(`User \x1b[33m ${socket.id} \x1b[0m sent hostGame emits`)
+    console.log(`User \x1b[33m ${socket.id} \x1b[0m sent hostGame request`)
      
     // Call the new createRoom method from gameService.js
-    const newRoom = lobbyService.createRoom({ gameName: data.gameName });
+    const newRoom = lobbyService.createGame({ gameName: data.gameName });
     
     // Do something with the new room, like adding it to the player's session or emitting a 'roomCreated' event
     socket.emit('hostGameCreated', { gameId: newRoom.id });
@@ -33,8 +36,7 @@ const handleConnection = function(socket) {
     console.log(`User User \x1b[33m ${socket.id} \x1b[0m sent \x1b[36m createAndJoinGame \x1b[0m`)
     const newRoom = lobbyService.createRoom(data);  // Assuming createRoom takes the necessary data and returns new room information
     
-    sessionData.gameId = roomId;
-    sessionData.save();
+    saveSessionData(sessionData, roomId);
 
     socket.join(newRoom.id);  // Join the newly created room
     socket.emit('localGameCreated', { gameId: newRoom.id });
@@ -47,8 +49,7 @@ const handleConnection = function(socket) {
 
     roomId = data.gameId;  // Update roomId here
 
-    sessionData.gameId = roomId;
-    sessionData.save();
+    saveSessionData(sessionData, roomId);
 
     console.log('User wants to store Session after "join"  sessionData.gameId:', sessionData.gameId);
 
@@ -131,10 +132,59 @@ const showPublicDisplay = (req, res) => {
 // Similar methods for other display types
 
 
-const showHostDashboard = (req, res) => { 
+// Barmen start the Host and shows the URL barcoded to any visitors
+const showHostDashboard = (req, res) => {
+  const gameId = req.params.gameId;
+
+  console.log('dinoGameRoutes.js: showHostDashboard(): \n gameID: \x1b[1;33m' , gameId,
+              '\x1b[0m \n req.user:  ' , req.user ,
+              '\n req.isAuthenticated()=' , req.isAuthenticated() );  
+
+  // Scenario 1: Validate if the game already exists
+  if (lobbyService.gamesList.has(gameId)) {
+    const gameData = lobbyService.gamesList.get(gameId);
+    return res.render('DinoGame/DinoHostDashboard.ejs', { 
+      gameData,
+      title: `Host Dashboard for Game ${gameId}`,
+      gameId: gameId
+      // include other variables here
+    });
+  } 
+  // Scenario 2: Create a new game since the gameId doesn't exist yet
+  else {
+    const newGame = lobbyService.createGame({
+      userId: req.user.id, // Assuming user's ID is stored in req.user.id
+      gameName: "Custom Game", // Add your logic here
+      gameType: "Standard", // Add your logic here
+    });
+    if (newGame) {
+      return res.render('DinoGame/DinoHostDashboard.ejs', { 
+        gameData: newGame,
+        title: `Host Dashboard for New Game`,
+        gameId: newGame.id
+        // include other variables here
+      });
+    } else {
+      return res.status(400).send("Unable to create game");
+    }
+  }
+};
+
+
+const showPlayerClient = (req, res) => { 
   const gameId = req.params.gameId;
   // Logic for public display
-  res.render('DinoGame/DinoHostDashboard', {
+  res.render('DinoGame/DinoLocalView', {
+      title: `Host Display for Game ${gameId}`,
+      gameId: gameId,
+      // additional data
+  });
+};
+
+const showInternetPlayer = (req, res) => { 
+  const gameId = req.params.gameId;
+  // Logic for public display
+  res.render('DinoGame/DinoPlayerClient', {
       title: `Host Display for Game ${gameId}`,
       gameId: gameId,
       // additional data
@@ -144,6 +194,8 @@ const showHostDashboard = (req, res) => {
 module.exports = {
   handleConnection,
   showPublicDisplay,
-  showHostDashboard
+  showHostDashboard,
+  showPlayerClient,
+  showInternetPlayer
   // other exports
 };
