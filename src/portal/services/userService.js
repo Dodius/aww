@@ -21,6 +21,7 @@ async function getUserByUsername(username) {
 
 async function getUserById(id) {
   const [rows] = await pool.execute('SELECT * FROM `users` WHERE `id` = ?', [id]);
+  console.log('// src/portal/services/userService.js  user:', id, rows[0]);
   return rows[0];
 }
               
@@ -68,4 +69,9 @@ async function updateUserAvatar(userID, newAvatarURL) {
   }
 }
 
-module.exports = { getUserByUsername, getUserById, createUser, updateUserName, updateUserAvatar };
+module.exports = { 
+  getUserByUsername, 
+  getUserById, 
+  createUser, 
+  updateUserName, 
+  updateUserAvatar };

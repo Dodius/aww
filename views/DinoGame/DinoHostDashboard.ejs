@@ -6,7 +6,7 @@
   <!--script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script -->
   <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"></script>
   <script src="https://kit.fontawesome.com/5d12624b68.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 
   <link rel="stylesheet" href="/css/main.css" />
   <link rel="stylesheet" href="/css/styles.css" />
@@ -14,20 +14,23 @@
 </head>
 <body>
 
-  <a href="/" style="display: block; position: absolute; top: 10px; left: 10px;">
+  <!-- back arrow -->
+  <a href="/dino" style="display: block; position: absolute; top: 10px; left: 10px;">
     <i class="fas fa-arrow-left" style="font-size: 30px;"></i>
   </a>
  
 
+  <!-- Just a text and barcode -->
   <h1>Game ID: <%= gameId %></h1> 
   <div id="gameContainer" data-gameid="<%= gameId %>"></div>
 
-  here goes some statistic...
-  userCount: <div id="userCount"></div>
-  userNames: <div id="userNames"></div>
+  here goes some statistic... <br>
+  userCount: <div id="userCount" style="display: inline;"></div> <br>
+  userNames: <div id="userNames" style="display: inline;"></div>
 
-
-  <svg id="barcode"></svg>
+ 
+  <div id="qrcode"></div>
+  Barcode text: <div id="qrtext"></div>
 
   <!-- Include Socket.IO client script and your custom script -->
   <script src="/Dino/js/DinoHost.js"></script>

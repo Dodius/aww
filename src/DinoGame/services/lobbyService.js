@@ -6,21 +6,24 @@ const { v4: uuidv4 } = require('uuid');
 let gamesList = new Map();  // Initialize a new Map
 
 const createGame = ({ userId, gameName, gameType }) => {
-  const gameId = generateUniqueGameId();
+
+  if(!gameName){
+    const gameName = generateUniqueGameId();
+  }
   const newGame = new GameModel();
   
-  newGame.gameID = gameId;
+  newGame.gameID = gameName;
   newGame.state = "lobby";
 
   const newGameEntry = {
-    id: gameId,
+    id: gameName,
     host: userId,
     gameName,
     gameType,
     gameInstance: newGame // Store the game instance here
   };
 
-  gamesList.set(gameId, newGameEntry); // Use set() to add entries
+  gamesList.set(gameName, newGameEntry); // Use set() to add entries
   
   initializeGameRoom(newGameEntry);
 
@@ -43,8 +46,18 @@ function leaveGame(gameId, playerId) {
   return game;
 }
 
+// New function to find a game by its ID
+const findGameById = (gameId) => {
+  return games[gameId] || null;
+};
+
 function generateUniqueGameId() {
   return uuidv4();
 }
 
-module.exports = { gamesList, createGame, joinGame, leaveGame };
+module.exports = { 
+    gamesList, 
+    createGame, 
+    joinGame, 
+    leaveGame, 
+    findGameById };

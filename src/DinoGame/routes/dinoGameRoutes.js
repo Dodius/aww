@@ -45,15 +45,15 @@ router.get('/:gameId/client', (req, res) => {
 });
 
 
-// Public Display for Big TV
+// Public Display for Big TV IE
 router.get('/:gameId/public-display', dinoController.showPublicDisplay);
 //router.get('/:gameId/public-display', (req, res) => dinoController.showPublicDisplay(req, res));
 
 
-// Hoster Dashboard
+// Hoster Dashboard Chrome
 router.get('/:gameId/host-dashboard', dinoController.showHostDashboard);
 
-// Simple Client View
+// Simple Client View Firefox
 router.get('/:gameId/player-client', dinoController.showPlayerClient);
 
 // Internet Player with full local view

@@ -4,26 +4,6 @@ const PlayerModel = require('../models/PlayerModel');
 const LaneModel = require('../models/LaneModel'); 
 const GameModel = require('../models/GameModel');
 
-const { v4: uuidv4 } = require('uuid');
-
-const createGame = ({ id, userId }) => {
-  const gameId = id || generateUniqueGameId();
-  const newGame = new GameModel();
-  
-  newGame.gameID = gameId;
-  newGame.state = "lobby";
-  newGame.creatorPlayerId = userId; // If you want to keep track of who created the game
-
-  return newGame;
-};
-
-function generateUniqueGameId() {
-  return uuidv4();
-}
- 
-
-
-
 
 // Function to initialize a game room
 const initializeGameRoom = (room) => {
@@ -56,8 +36,7 @@ const getGameState = (room) => {
   return gameInstance || null;
 };
 
-module.exports = {
-  createGame,
+module.exports = {  
   initializeGameRoom,
   onClientJoined,
   handleDisconnection,
