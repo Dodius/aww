@@ -53,7 +53,7 @@ router.get('/:gameId/public-display', dinoController.showPublicDisplay);
 // Hoster Dashboard Chrome
 router.get('/:gameId/host-dashboard', dinoController.showHostDashboard);
 
-// Simple Client View Firefox
+// Simple Client View Firefox "Jump"
 router.get('/:gameId/player-client', dinoController.showPlayerClient);
 
 // Internet Player with full local view

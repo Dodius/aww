@@ -40,6 +40,7 @@ socket.on('updateUserList', (userList) => {
   document.getElementById("userCount").innerText = userCount;
   
 
+  document.getElementById("userNames").innerHTML = '';
   userList.forEach(user => {
     const listItem = document.createElement('li');
     listItem.textContent = user.username;
