@@ -111,7 +111,7 @@ export default class DinoHostTV {
     });
 
     // Emitting events to server
-    this.socket.emit('startGame', { username: 'Player1' });
+    //this.socket.emit('startGame', { username: 'Player1' });     // public host joined
 
     this.isRunning = true;
     this.loop(0);
@@ -158,11 +158,11 @@ export default class DinoHostTV {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     // Draw sky
-    this.ctx.fillStyle = '#87CEEB';
+    this.ctx.fillStyle = '#87CEEB';       // blue sky
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     // Draw ground
-    this.ctx.fillStyle = '#228B22';
+    this.ctx.fillStyle = '#228B22';       // green grass
     this.ctx.fillRect(0, this.canvas.height - 100, this.canvas.width, 100);
 
     // Draw clouds
@@ -221,5 +221,5 @@ export default class DinoHostTV {
     
 }
  
-const game = new Game('gameCanvas');  // Create a new instance of Game class
+const game = new DinoHostTV('gameCanvas');  // Create a new instance of Game class
 game.start();  // Call the start method on that instance

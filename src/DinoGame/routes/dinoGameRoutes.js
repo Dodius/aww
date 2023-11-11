@@ -11,7 +11,7 @@ const dinoController = require('../controllers/dinoController');
 
 // Lobby route
 router.get('/', (req, res) => {
-    res.render('DinoGame/dinoLobby', {
+    res.render('DinoGame/dinoLobby', {          // views .ejs
         title: 'Dino Game Lobby',
         user: req.user,
         gamesList: [123, 321, 432]

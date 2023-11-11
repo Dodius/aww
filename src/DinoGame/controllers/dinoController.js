@@ -93,7 +93,8 @@ const handleConnection = function(io, socket) {
     console.log("Session Data4: ", socket.user.username);
 
     // Do something with the new room, like adding it to the player's session or emitting a 'roomCreated' event
-    io.emit('hostGameCreated', { gameId: newRoom.id }); // Emit only to the (Hoster) client who initiated room
+    //io.emit('hostGameCreated', { gameId: newRoom.id }); // Emit only to the (Hoster) client who initiated room
+    socket.emit('hostGameCreated', { gameId: newRoom.id }); // Emit only to the (Hoster) client who initiated room
 
     io.emit('updateGameList', activeGames);  // Emit to all connected clients 
   });
