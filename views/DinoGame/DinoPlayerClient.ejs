@@ -36,13 +36,15 @@
     </tr>
   </table>
 
-  <h1>Game ID: <%= gameId %></h1>
+  <p>Welcome <%= user.username %> to the Dino game instance with ID: <%= gameId %></p> 
   <input type="hidden" id="gameId" value="<%= gameId %>">
   <input type="hidden" id="username" value="<%= user.username %>">
-  <button id="jump-button">Jump</button>
+  <!-- button id="jump-button">Jump</button -->
+ 
+  <canvas id="gameCanvas" width="800" height="600"></canvas> 
 
   <!-- Include Socket.IO client script and your custom script -->
-  <script src="/Dino/js/Client.js"></script>
+  <script type="module" src="/dino/js/Game.js"></script>
 
 </body>
 </html>

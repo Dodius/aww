@@ -96,19 +96,16 @@ export default class DinoHostTV {
     //alert("i'm alive in D:\Games\Unity\Drago\GPT-Sep-Fold\aww\public\DinoGame\js\Game.js" );
     console.log("i'm alive in D:\Games\Unity\Drago\GPT-Sep-Fold\aww\public\DinoGame\js\Game.js");
     
-    // When a new user joins
-    this.socket.on('newUser', (data) => {
-      const newUser = new User(data.username, data.avatar);
-      this.users.push(newUser);
-      const newLane = new Lane(newUser);
-      this.lanes.push(newLane);
-      // Redraw canvas based on new lanes
-    });
+    // // When a new user joins
+    // this.socket.on('newUser', (data) => {
+    //   const newUser = new User(data.username, data.avatar);
+    //   this.users.push(newUser);
+    //   const newLane = new Lane(newUser);
+    //   this.lanes.push(newLane);
+    //   // Redraw canvas based on new lanes
+    // });
 
-    // Listening to events from server
-    this.socket.on('gameData', (data) => {
-      // Handle the real-time game data
-    });
+    
 
     // Emitting events to server
     //this.socket.emit('startGame', { username: 'Player1' });     // public host joined
@@ -124,6 +121,20 @@ export default class DinoHostTV {
     //   sprite.update(deltaTime);
     // }
     this.generateClouds(deltaTime);
+
+    // When a new user joins
+    this.socket.on('newUser', (data) => {
+      const newUser = new User(data.username, data.avatar);
+      this.users.push(newUser);
+      const newLane = new Lane(newUser);
+      this.lanes.push(newLane);
+      // Redraw canvas based on new lanes
+    });
+
+    // Listening to events from server
+    this.socket.on('gameData', (data) => {
+      // Handle the real-time game data
+    });
 
     for (const lane of this.lanes) {
       lane.update(deltaTime);

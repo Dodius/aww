@@ -99,15 +99,53 @@ const handleConnection = function(io, socket) {
     io.emit('updateGameList', activeGames);  // Emit to all connected clients 
   });
   
-  ///////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////// someone started from Browser
   socket.on('createAndJoinGame', (data) => {
     console.log(`User User \x1b[33m ${socket.id} \x1b[0m sent \x1b[36m createAndJoinGame \x1b[0m`)
-    const newRoom = lobbyService.createRoom(data);  // Assuming createRoom takes the necessary data and returns new room information
-    
+
+    const newRoom = lobbyService.createGame(         // Assuming createRoom takes the necessary data and returns new room information
+      { gameName: data.gameName, 
+        userId: socket.request.session.passport.user,
+        gameType: "Host-n-Play"
+      });
+     
+      
     saveSessionData(sessionData, roomId);
 
-    socket.join(newRoom.id);  // Join the newly created room
-    socket.emit('localGameCreated', { gameId: newRoom.id });
+    // Initialize the first user as 'hoster'
+    newRoom.users = [
+      {
+        id: socket.id,
+        username: socket.user.username, // Assuming you've attached the user object to the socket
+        role: "hoster-n-player"
+      }
+    ];
+    
+    activeGames.push(newRoom);
+
+    console.log(`we created a Host-n-Play game, now activeGames: ${activeGames}`);
+
+    console.log(`${colors.ctx_BrCyan} dinoController.js:${colors.ctx_Reset}  emits "updateGameList"`)
+    console.log(`Emitting updateGameList to ${io.sockets.size} connected clients`);   // that is local for /dino space
+                                                                                      // while ${io.engine.clientsCount}  - is for global (doesn't work, actually)
+
+    let userId = socket.request.session.passport.user;
+    let username = socket.request.session.passport.user.username;
+    
+    console.log(`User ${username} with ID ${userId} connected with Socket ID ${socket.id}`);
+  
+    console.log("Session Data1: ", socket.request.session);
+    console.log("Session Data2: ", socket.request.session.passport.user);
+    console.log("Session Data3: ", socket.request.session.passport.user.username);
+    console.log("Session Data4: ", socket.user.username);
+
+    // need?
+    //socket.join(newRoom.id);  // Join the newly created room
+
+    // Do something with the new room, like adding it to the player's session or emitting a 'roomCreated' event 
+    socket.emit('localGameCreated', { gameId: newRoom.id }); // Emit only to the (Hoster) client who initiated room
+
+    io.emit('updateGameList', activeGames);  // Emit to all connected clients  
   });
 
   ///////////////////////////////////////////////////////////////////////
@@ -259,6 +297,7 @@ const showInternetPlayer = (req, res) => {
   res.render('DinoGame/DinoPlayerClient', {
       title: `Host Display for Game ${gameId}`,
       gameId: gameId,
+      user: req.user
       // additional data
   });
 };

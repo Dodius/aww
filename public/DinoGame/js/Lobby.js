@@ -51,13 +51,17 @@ document.addEventListener("DOMContentLoaded", () => {
     socket.emit('joinGame', { gameId });  //JoinSimpleView  joinFullView
   });
 
-  socket.on('gameCreated', (data) => {
+  // socket.on('gameCreated', (data) => {
+  //   console.log('Game created:', data);
+  //   window.location.href = `/Dino/${data.gameId}/display`;
+  // });
+
+  socket.on('localGameCreated', (data) => {               // local "Create and Play", just started a new game and waiting for siblings
     console.log('Game created:', data);
-    window.location.href = `/Dino/${data.gameId}/display`;
+    window.location.href = `/Dino/${data.gameId}/internet-player`;
   });
 
-
-  socket.on('hostGameCreated', (data) => {
+  socket.on('hostGameCreated', (data) => {                // Barmen requested, created and now shold be redirected to barcode
     console.log('Game created:', data);
     alert('Game created:', data);
     window.location.href = `/Dino/${data.gameId}/host-dashboard`;
