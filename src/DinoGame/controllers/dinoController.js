@@ -110,13 +110,14 @@ const handleConnection = function(io, socket) {
       });
      
       
-    saveSessionData(sessionData, roomId);
+    saveSessionData(sessionData, roomId);     // what is that? null to session?
 
     // Initialize the first user as 'hoster'
     newRoom.users = [
       {
         id: socket.id,
-        username: socket.user.username, // Assuming you've attached the user object to the socket
+        //username: socket.user.username, // Assuming you've attached the user object to the socket
+        username: socket.request.session.passport.user.username,
         role: "hoster-n-player"
       }
     ];
@@ -146,6 +147,13 @@ const handleConnection = function(io, socket) {
     socket.emit('localGameCreated', { gameId: newRoom.id }); // Emit only to the (Hoster) client who initiated room
 
     io.emit('updateGameList', activeGames);  // Emit to all connected clients  
+
+    // Emit an updated list to all clients including the newly connected user's readable name
+    io.emit('updateUserList', connectedUsers.map(user => {
+      // Make sure you only map necessary data for the client-side to see
+      return { id: user.id, username: user.username }; // Ensure 'username' is the correct property from your user model
+    }));
+    
   });
 
   ///////////////////////////////////////////////////////////////////////

@@ -74,32 +74,42 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Listen for the 'updateGameList' event from the server
-  socket.on('updateGameList', (data) => {
+  socket.on('updateGameList', (games) => {
     // Clear the current list
-    activeGamesList.innerHTML = '';
+    activeGamesList.innerHTML = '';       // Clear current list
     
-    console.log("Received updateGameList", data);
+    console.log("Received updateGameList", games);
 
     // Update the UI to reflect the new list of active games
-    data.forEach((game) => {
-      const listItem = document.createElement('li');
-      listItem.textContent = `Game ID: ${game.id}, Host: ${game.host}`;
-      activeGamesList.appendChild(listItem);
-      game.users.forEach(user => {
-        console.log(user);
-        if (user.role === 'hoster') {
-          // Do something special for the hoster
-        } else if (user.role === 'player') {
-          // Do something special for players
-        } // ... and so on
-      });
-    });
+    games.forEach((game) => {
+      const gameItem = document.createElement('li');
+      gameItem.textContent = `Game: ${game.name} - ID: ${game.id}, Host: ${game.host}`;
 
+          const userList = document.createElement('ul');
+          game.users.forEach((user) => {
+            const userItem = document.createElement('li');
+            userItem.textContent = user.username;
+            userList.appendChild(userItem);
+          });
+
+          gameItem.appendChild(userList); // Append the user list to the game item
+
+      activeGamesList.appendChild(gameItem);
+
+      // game.users.forEach(user => {
+      //   console.log(user);
+      //   if (user.role === 'hoster') {
+      //     // Do something special for the hoster
+      //   } else if (user.role === 'player') {
+      //     // Do something special for players
+      //   } // ... and so on
+      // });
+    });
+ 
     // Update the count
     activeGamesCount.textContent = data.length;
   });
 
-  
 
   socket.on('updateUserList', (users) => {
     //alert("i've got 'updateUserList'");
@@ -107,9 +117,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     connectedUsersList.innerHTML = '';
     users.forEach(user => {
-      const listItem = document.createElement('li');
-      listItem.textContent = user.username;
-      connectedUsersList.appendChild(listItem);
+      const userItem = document.createElement('li');
+      userItem.textContent = `${user.username}  ${user.username}  (ID: ${user.id})`; // Include ID in the text
+      connectedUsersList.appendChild(userItem);
     });
 
     connectedUsersCount.textContent = users.length;
